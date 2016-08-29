@@ -7,6 +7,7 @@ import Dict
 
 type Part
     = Digits Int
+    | Str String
     | Space
 
 
@@ -25,6 +26,16 @@ formats =
             , Digits 2
             , Space
             , Digits 2
+            ]
+          )
+        , ( "us"
+          , [ Str "("
+            , Digits 3
+            , Str ")"
+            , Space
+            , Digits 3
+            , Str "-"
+            , Digits 4
             ]
           )
         ]
@@ -57,6 +68,9 @@ formatPart part digits =
     case part of
         Space ->
             (" ", digits)
+
+        Str string ->
+            (string, digits)
 
         Digits length ->
             ( String.left length digits

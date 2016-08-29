@@ -11,6 +11,10 @@ suite =
                 ( \_ ->
                     expectFormat "34 56 12 45" "dk" "34561245"
                 )
+            , test "formats US phone numbers"
+                ( \_ ->
+                    expectFormat "(432) 654-5431" "us" "4326545431"
+                )
             , test "ignores superfluous digits"
                 ( \_ ->
                     expectFormat "34 56 12 45" "dk" "34561245123"
