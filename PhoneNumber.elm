@@ -12,6 +12,7 @@ specific rules.
 
 
 import String
+import Char
 import Dict
 
 
@@ -57,7 +58,8 @@ formatString : String -> String -> Maybe String
 formatString country input =
     Dict.get country formats
         |> Maybe.map (\format ->
-            formatParts format input
+            String.filter Char.isDigit input
+                |> formatParts format
                 |> String.concat 
           )
 

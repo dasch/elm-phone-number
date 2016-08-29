@@ -23,6 +23,10 @@ suite =
                 ( \_ ->
                     expectFormat "34 56 12 4 " "dk" "3456124"
                 )
+            , test "ignores non-digits"
+                ( \_ ->
+                    expectFormat "34 56 12 45" "dk" "yo 34 56 lo 12 x 45"
+                )
             ]
         ]
 
