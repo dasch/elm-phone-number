@@ -9,6 +9,11 @@ type Part
     | Space
 
 
+placeholder : Char
+placeholder =
+    ' '
+
+
 dkFormat =
     [ Digits 2
     , Space
@@ -48,4 +53,7 @@ formatPart part digits =
             (" ", digits)
 
         Digits length ->
-            (String.left length digits, String.dropLeft length digits)
+            ( String.left length digits
+                |> String.padRight length placeholder
+            , String.dropLeft length digits
+            )
