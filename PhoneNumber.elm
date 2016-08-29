@@ -2,6 +2,7 @@ module PhoneNumber exposing (formatString)
 
 
 import String
+import Dict
 
 
 type Part
@@ -14,23 +15,28 @@ placeholder =
     ' '
 
 
-dkFormat =
-    [ Digits 2
-    , Space
-    , Digits 2
-    , Space
-    , Digits 2
-    , Space
-    , Digits 2
-    ]
+formats =
+    Dict.fromList
+        [ ( "dk"
+          , [ Digits 2
+            , Space
+            , Digits 2
+            , Space
+            , Digits 2
+            , Space
+            , Digits 2
+            ]
+          )
+        ]
 
 
-formatString : String -> String
-formatString input =
-    let
-        format = dkFormat
-    in
-        String.concat (formatParts format input)
+formatString : String -> String -> Maybe String
+formatString country input =
+    Dict.get country formats
+        |> Maybe.map (\format ->
+            formatParts format input
+                |> String.concat 
+          )
 
 
 formatParts : List Part -> String -> List String
