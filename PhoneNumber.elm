@@ -1,6 +1,16 @@
 module PhoneNumber exposing (formatString)
 
 
+{-| The PhoneNumber module allows formatting phone numbers according to country
+specific rules.
+
+    PhoneNumber.formatString "us" "5417543010"
+    --> Just "(541) 754-3010"
+
+@docs formatString
+-}
+
+
 import String
 import Dict
 
@@ -41,6 +51,8 @@ formats =
         ]
 
 
+{-| Formats a string of digits according to the country code.
+-}
 formatString : String -> String -> Maybe String
 formatString country input =
     Dict.get country formats
