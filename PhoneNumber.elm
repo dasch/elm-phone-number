@@ -1,6 +1,5 @@
 module PhoneNumber exposing (formatString)
 
-
 {-| The PhoneNumber module allows formatting phone numbers according to country
 specific rules.
 
@@ -9,7 +8,6 @@ specific rules.
 
 @docs formatString
 -}
-
 
 import String
 import Char
@@ -57,11 +55,12 @@ formats =
 formatString : String -> String -> Maybe String
 formatString country input =
     Dict.get country formats
-        |> Maybe.map (\format ->
-            String.filter Char.isDigit input
-                |> formatParts format
-                |> String.concat 
-          )
+        |> Maybe.map
+            (\format ->
+                String.filter Char.isDigit input
+                    |> formatParts format
+                    |> String.concat
+            )
 
 
 formatParts : List Part -> String -> List String
@@ -72,19 +71,20 @@ formatParts parts chars =
 
         part :: restParts ->
             let
-                (output, restChars) = formatPart part chars
+                ( output, restChars ) =
+                    formatPart part chars
             in
                 output :: formatParts restParts restChars
 
 
-formatPart : Part -> String -> (String, String)
+formatPart : Part -> String -> ( String, String )
 formatPart part digits =
     case part of
         Space ->
-            (" ", digits)
+            ( " ", digits )
 
         Str string ->
-            (string, digits)
+            ( string, digits )
 
         Digits length ->
             ( String.left length digits
